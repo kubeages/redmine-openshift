@@ -5,7 +5,7 @@ Redmine requires root permission so ensure to give this permission to your proje
 
 So the steps to deploy this application are:
 
-1. Create the project: *oc create -f yourprojectname*
+1. Create the project: *oc new-project <projectname>*
 
 2. Give root permissions to the default service account: *oc adm policy add-scc-to-user anyuid -z default -n yourprojectname*
 
