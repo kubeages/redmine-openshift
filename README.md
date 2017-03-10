@@ -14,4 +14,4 @@ So the steps to deploy this application are:
 
 4. From the webconsole, access to the project, press Add To Project and create the app using the previously created template.
 
-5. Please wait until the Pods be ready, then you can log-in with the following Redmine credentials: admin/admin
+5. Please wait until the pods are ready, then you can log-in with the following Redmine credentials: admin/admin
