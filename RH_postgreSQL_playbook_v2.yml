@@ -30,6 +30,19 @@
    - name: Add user postgres
      action: user name={{ pguser }} password={{ pgpass }}
 
+   - name: Ensure PostgreSQL is listening on all interfaces
+     lineinfile: dest=/var/lib/pgsql/data/postgresql.conf
+       regexp='^#?listen_addresses\s*='
+       line="listen_addresses = '0.0.0.0'"
+       state=present
+     notify: restart postgresql
+
+   - lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                 regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5'
+                 line='host all all 127.0.0.1/32 md5'
+                 insertbefore=BOF
+     notify: restart postgresql
+
    - name: Ensure database is created
      postgresql_db: name={{ dbname }}
                  encoding='UTF-8'
@@ -56,3 +69,6 @@
      become: true
      become_user: "{{ pguser }}"
 
+  handlers:
+   - name: restart postgresql
+     service: name=postgresql state=restarted
