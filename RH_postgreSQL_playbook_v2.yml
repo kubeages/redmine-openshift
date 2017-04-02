@@ -4,9 +4,9 @@
   vars:
      pguser: postgres
      pgpass: redhat
-     dbname: redmine
+     dbname: redmine_production
      dbuser: redmine
-     dbpass: redhat
+     dbpass: password
   tasks:
    - name: Install packages
      yum: name={{ item }}
@@ -20,10 +20,12 @@
      command: service postgresql initdb
               creates=/var/lib/pgsql/data/postgresql.conf
 
+
    - name: Start PostgreSQL and enable at boot
      service: name=postgresql
               enabled=yes
               state=started
+  
 
    - name: Add user postgres
      action: user name={{ pguser }} password={{ pgpass }}
