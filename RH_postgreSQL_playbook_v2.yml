@@ -9,6 +9,13 @@
      dbuser: redmine
      dbpass: password
   tasks:
+   - name: Open Firewall
+     firewalld:     
+        port=5432/tcp
+        permanent=true
+        state=enabled
+        immediate=yes
+  
    - name: Install packages
      yum: name={{ item }}
           state=installed
