@@ -1,5 +1,6 @@
 ---
 - name: Install Postgres Server
+  user: root
   hosts: bbdd
   vars:
      pguser: postgres
@@ -33,7 +34,7 @@
    - name: Ensure PostgreSQL is listening on all interfaces
      lineinfile: dest=/var/lib/pgsql/data/postgresql.conf
        regexp='^#?listen_addresses\s*='
-       line="listen_addresses = '0.0.0.0'"
+       line="listen_addresses = '*'"
        state=present
      notify: restart postgresql
 
@@ -72,3 +73,5 @@
   handlers:
    - name: restart postgresql
      service: name=postgresql state=restarted
+
+     
